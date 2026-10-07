@@ -1,0 +1,21 @@
+{
+  "name": "sunpowers-store",
+  "version": 2,
+  "public": false,
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "index.html"
+    }
+  ],
+  "env": {
+    "SUPABASE_URL": "https://fotmykjrqrgjnzqbdsea.supabase.co",
+    "SUPABASE_KEY": "sb_publishable_sN48EuIxQhDgS4xaalwJZA_aV-9mfLg"
+  }
+}
