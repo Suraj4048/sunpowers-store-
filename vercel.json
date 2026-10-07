@@ -1,7 +1,6 @@
 {
   "name": "sunpowers-store",
   "version": 2,
-  "public": false,
   "builds": [
     {
       "src": "index.html",
