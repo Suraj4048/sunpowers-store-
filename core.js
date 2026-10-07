@@ -67,7 +67,10 @@
   SP.backendReady = function () { return !!(CFG.SUPABASE_URL && CFG.SUPABASE_KEY); };
   function base() { return String(CFG.SUPABASE_URL || '').replace(/\/+$/, ''); }
   function authHeaders(extra) {
-    var h = { apikey: CFG.SUPABASE_KEY, Authorization: 'Bearer ' + CFG.SUPABASE_KEY };
+    var key = String(CFG.SUPABASE_KEY || '').trim();
+    var h = { apikey: key };
+    // New Supabase keys (sb_publishable_...) are not JWTs: send only the apikey header.
+    if (key.indexOf('sb_') !== 0) h.Authorization = 'Bearer ' + key;
     for (var k in extra || {}) h[k] = extra[k];
     return h;
   }
