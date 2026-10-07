@@ -38,6 +38,7 @@ cd /workspaces/sunpowers-store && find . -mindepth 1 -maxdepth 1 ! -name .git ! 
 - 🛠️ सर्विसेज़, ⭐ फ़ीडबैक (sticky ticker), ▶️ YouTube वीडियो, 📝 फ़ॉर्म व "ऑर्डर कैसे करें" गाइड
 - 🧾 **ऑर्डर** और 📨 **पूछताछ** — स्टेटस बदलें, WhatsApp करें, Excel डाउनलोड
 - 📊 **Excel** — पूरी वेबसाइट एक Excel में डाउनलोड → बदलाव → अपलोड → सब जगह अपडेट। **Google Merchant / Facebook / Instagram / WhatsApp कैटलॉग** के लिए प्रोडक्ट फ़ीड (CSV)
+- 📄 **पेज/पॉलिसी** — About, Contact, Return/Refund, Shipping, Privacy, Terms (Admin से एडिट; 📋 बटन से कॉपी करके मुख्य वेबसाइट पर paste करें)
 - ⚙️ **सेटिंग्स** — स्टोर नाम, लोगो, WhatsApp, पेमेंट (COD + एडवांस %, UPI ID — चालू/बंद), Facebook/Instagram/YouTube/GMB लिंक, Google Analytics, Meta Pixel, पासवर्ड, बैकअप
 
 ## ज़रूरी बातें

@@ -356,7 +356,7 @@ async function boot() {
 
 /* ======================= shell & tabs ======================= */
 var TABS = [['layout', '🏠 होम लेआउट'], ['products', '📦 प्रोडक्ट्स'], ['sections', '🗂️ सेक्शन'], ['slides', '🖼️ स्लाइडशो'], ['services', '🛠️ सर्विसेज़'],
-  ['feedback', '⭐ फ़ीडबैक'], ['videos', '▶️ वीडियो'], ['formguide', '📝 फ़ॉर्म व गाइड'], ['orders', '🧾 ऑर्डर'], ['enquiries', '📨 पूछताछ'], ['excel', '📊 Excel / Feed'], ['settings', '⚙️ सेटिंग्स']];
+  ['feedback', '⭐ फ़ीडबैक'], ['videos', '▶️ वीडियो'], ['formguide', '📝 फ़ॉर्म व गाइड'], ['pages', '📄 पेज/पॉलिसी'], ['orders', '🧾 ऑर्डर'], ['enquiries', '📨 पूछताछ'], ['excel', '📊 Excel / Feed'], ['settings', '⚙️ सेटिंग्स']];
 function shell() {
   app.innerHTML = '<div class="top"><div class="top-in"><h1>⚙️ ' + esc(D.settings.storeName) + ' Admin</h1><a class="btn sm out" href="./" target="_blank" rel="noopener">🌐 स्टोर देखें</a><button class="btn sm gray" id="lo">लॉगआउट</button></div>' +
     '<div class="tabs">' + TABS.map(function (t) { return '<button class="tab" data-tab="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div></div><main id="main"></main>';
@@ -658,8 +658,9 @@ var LISTS = {
     row: function (it) { return [it.icon, it.title, (it.sub || '') + (it.price ? ' • ' + it.price : '')]; }, blank: { icon: '⭐', title: '', sub: '', price: '', bg: '#e8f5e9', linkType: 'form', link: '' } },
   feedback: { key: 'feedback', title: 'फ़ीडबैक', fields: [
     { k: 'name', l: 'ग्राहक का नाम', t: 'text', req: true }, { k: 'city', l: 'शहर', t: 'text' },
-    { k: 'rating', l: 'रेटिंग (1 से 5)', t: 'number', min: 1, max: 5, d: 5 }, { k: 'text', l: 'फ़ीडबैक', t: 'textarea', req: true }],
-    row: function (it) { return ['⭐', it.name + (it.city ? ', ' + it.city : '') + ' — ' + '★'.repeat(Math.max(1, Math.min(5, Math.round(SP.num(it.rating) || 5)))), it.text]; }, blank: { name: '', city: '', rating: 5, text: '' } },
+    { k: 'rating', l: 'रेटिंग (1 से 5)', t: 'number', min: 1, max: 5, d: 5 }, { k: 'text', l: 'फ़ीडबैक (ग्राहक के अपने शब्द, बिना बदले)', t: 'textarea', req: true },
+    { k: 'source', l: 'ये रिव्यू कहाँ से है?', t: 'select', o: [['google', 'Google review (Google बैज दिखेगा)'], ['whatsapp', 'WhatsApp / मैसेज'], ['direct', 'सीधे ग्राहक से']] }],
+    row: function (it) { return ['⭐', it.name + (it.city ? ', ' + it.city : '') + ' — ' + '★'.repeat(Math.max(1, Math.min(5, Math.round(SP.num(it.rating) || 5)))), it.text]; }, blank: { name: '', city: '', rating: 5, text: '', source: 'google' } },
   videos: { key: 'videos', title: 'वीडियो', fields: [
     { k: 'title', l: 'वीडियो का टाइटल', t: 'text', req: true },
     { k: 'url', l: 'YouTube लिंक', t: 'text', ph: 'https://www.youtube.com/watch?v=... या https://youtu.be/...', v: function (u) { return u && !SP.ytId(u) ? 'ये सही YouTube लिंक नहीं लग रहा' : ''; }, h: 'YouTube वीडियो खोलें → Share → Copy link → यहाँ paste करें। (Shorts लिंक भी चलेगा)' }],
@@ -697,7 +698,7 @@ function listBind(m) {
 }
 V.services = function () { return '<div class="note g">होम पेज के रंगीन सर्विस कार्ड्स (2×2)। हर कार्ड पर क्लिक लिंक सेट कर सकते हैं।</div>' + listView('services'); };
 V.services_bind = listBind;
-V.feedback = function () { return '<div class="note g">ये फ़ीडबैक होम पेज पर चलती पट्टी (ticker) में और नीचे स्क्रीन पर चिपकी (sticky) लाइन में दिखेंगे। Sticky लाइन बंद/चालू: ⚙️ सेटिंग्स।</div>' + listView('feedback'); };
+V.feedback = function () { return '<div class="note r">⚠️ सिर्फ़ <b>असली</b> ग्राहकों के रिव्यू डालें, उनके अपने शब्दों में। नकली रिव्यू पर Google/Meta अकाउंट बंद कर सकते हैं।</div><div class="note g">Google रिव्यू का टेक्स्ट Google Maps से कॉपी करके यहाँ डालें और "Google review" चुनें। रिव्यू न हों तब भी होम पेज पर ⭐ रेटिंग और "Google पर सभी रिव्यू देखें" बटन दिखेगा (⚙️ सेटिंग्स → रिव्यू)।</div>' + listView('feedback'); };
 V.feedback_bind = listBind;
 V.videos = function () { return listView('videos'); };
 V.videos_bind = listBind;
@@ -712,6 +713,57 @@ var FG_FIELDS = [
 V.formguide = function () { return '<div class="card"><h2>📝 Requirement फ़ॉर्म और 🛍️ ऑर्डर गाइड</h2>' + F(FG_FIELDS, D) + '<button class="btn" id="fgSave" style="margin-top:14px">💾 सेव करें</button></div>'; };
 V.formguide_bind = function (m) { bindForm(m); $('#fgSave').onclick = function () { var v = readForm(m, FG_FIELDS); if (!v) return; applyTo(D, v); save(); }; };
 
+/* ======================= pages / policies ======================= */
+var PAGE_FIELDS = [
+  { k: 'title', l: 'पेज का नाम (हिंदी)', t: 'text', req: true }, { k: 'titleEn', l: 'Page name (English)', t: 'text' },
+  { k: 'body', l: 'पेज का टेक्स्ट (हिंदी)', t: 'textarea', rows: 16 }, { k: 'bodyEn', l: 'Page text (English)', t: 'textarea', rows: 16 },
+  { k: 'footer', l: 'फ़ुटर में इसका लिंक दिखाएँ', t: 'check', d: true }];
+var PAGE_HELP = 'लिखने का तरीका: <b>## </b> से शुरू लाइन = हेडिंग, <b>- </b> से शुरू = बुलेट, ख़ाली लाइन = नया पैरा। ये शब्द सेटिंग्स से अपने आप भर जाते हैं: ' +
+  ['legalName', 'ownerName', 'gstin', 'address', 'phone', 'email', 'hours', 'hoursEn', 'mapsLink', 'siteUrl', 'policyDate', 'reportDays', 'advancePct', 'localName', 'otherCharge', 'freeAbove'].map(function (k) { return '<code>{' + k + '}</code>'; }).join(' ');
+function pageText(pg, en) { return SP.fillVars(en ? (pg.bodyEn || pg.body) : (pg.body || pg.bodyEn), D.settings); }
+function copyText(txt) {
+  function fb() { var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); toast('📋 कॉपी हो गया'); } catch (e) { toast('कॉपी नहीं हुआ', true); } ta.remove(); }
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(function () { toast('📋 कॉपी हो गया — मुख्य वेबसाइट में paste करें'); }, fb); else fb();
+}
+function pageModal(pg) {
+  var isNew = !pg, obj = pg || { id: '', title: '', titleEn: '', body: '', bodyEn: '', footer: true };
+  var f = (isNew ? [{ k: 'id', l: 'पेज का लिंक-नाम (अंग्रेज़ी, बिना स्पेस)', t: 'text', req: true, ph: 'faq', v: function (x) { return !/^[a-z0-9-]{2,30}$/.test(x) ? 'सिर्फ़ a-z, 0-9 और -' : D.pages.some(function (p) { return p.id === x; }) ? 'ये नाम पहले से है' : ''; } }] : []).concat(PAGE_FIELDS);
+  modal(isNew ? '➕ नया पेज' : '✏️ ' + obj.title, '<div class="note g" style="font-size:13px">' + PAGE_HELP + '</div>' + F(f, obj), [{ l: 'रद्द करें', cls: 'gray' }, { l: '💾 सेव करें', fn: function (md) {
+    var v = readForm(md.body, f); if (!v) return false;
+    if (isNew) { var n = applyTo({ footer: true }, v); D.pages.push(n); } else applyTo(pg, v);
+    render(); return save('✅ पेज सेव हो गया');
+  } }], function (md) { bindForm(md.body); });
+}
+V.pages = function () {
+  var base = String(D.settings.siteUrl || location.origin).replace(/\/+$/, '');
+  return '<div class="note g">ये पेज वेबसाइट के फ़ुटर में दिखते हैं (Google/Meta अप्रूवल के लिए ज़रूरी)। 📋 बटन से टेक्स्ट कॉपी करके मुख्य वेबसाइट (www.sunpowers.in) पर <b>बिल्कुल वैसा ही</b> paste करें।</div>' +
+    '<div class="bar"><button class="btn" id="addPg">➕ नया पेज</button><button class="btn out" id="dlPg">⬇️ सारे पेज (.txt) — मुख्य वेबसाइट के लिए</button></div>' +
+    (D.pages.length ? D.pages.map(function (pg, i) {
+      return '<div class="row' + (pg.footer === false ? ' dim' : '') + '"><div class="th">📄</div><div class="rm"><b>' + esc(pg.title) + '</b><small>' + esc(pg.titleEn || '') + ' • ' + esc(base + '/?page=' + pg.id) + (pg.footer === false ? ' • फ़ुटर में नहीं' : '') + '</small></div>' +
+        '<div class="acts"><button class="ib" data-pgm="' + i + '|-1"' + (i === 0 ? ' disabled' : '') + '>⬆️</button><button class="ib" data-pgm="' + i + '|1"' + (i === D.pages.length - 1 ? ' disabled' : '') + '>⬇️</button>' +
+        '<button class="btn sm out" data-pgc="' + i + '|hi">📋 हिंदी</button><button class="btn sm out" data-pgc="' + i + '|en">📋 English</button>' +
+        '<a class="ib" href="./?page=' + encodeURIComponent(pg.id) + '" target="_blank" rel="noopener" title="देखें">👁</a><button class="ib" data-pge="' + i + '">✏️</button><button class="ib red" data-pgd="' + i + '">🗑</button></div></div>';
+    }).join('') : '<div class="empty">कोई पेज नहीं</div>');
+};
+V.pages_bind = function (m) {
+  $('#addPg').onclick = function () { pageModal(null); };
+  $('#dlPg').onclick = function () {
+    var txt = D.pages.map(function (pg) { return '==================== ' + pg.title + ' / ' + (pg.titleEn || '') + ' ====================\n\n' + pageText(pg, false) + '\n\n----- English -----\n\n' + pageText(pg, true) + '\n'; }).join('\n\n');
+    download(new Blob(['\ufeff' + txt], { type: 'text/plain;charset=utf-8' }), 'sunpowers-policy-pages-' + today() + '.txt');
+  };
+  m.addEventListener('click', async function (e) {
+    var b, p;
+    if ((b = e.target.closest('[data-pge]'))) pageModal(D.pages[+b.getAttribute('data-pge')]);
+    else if ((b = e.target.closest('[data-pgc]'))) { p = b.getAttribute('data-pgc').split('|'); var pg = D.pages[+p[0]]; copyText((p[1] === 'en' ? (pg.titleEn || pg.title) : pg.title) + '\n\n' + pageText(pg, p[1] === 'en')); }
+    else if ((b = e.target.closest('[data-pgm]'))) { p = b.getAttribute('data-pgm').split('|'); var i = +p[0], j = i + (+p[1]); if (j < 0 || j >= D.pages.length) return; D.pages.splice(j, 0, D.pages.splice(i, 1)[0]); render(); save('✅ क्रम बदल गया'); }
+    else if ((b = e.target.closest('[data-pgd]'))) {
+      var d = D.pages[+b.getAttribute('data-pgd')];
+      var legal = ['returns', 'shipping', 'privacy', 'terms', 'about', 'contact'].indexOf(d.id) >= 0;
+      if (await ask((legal ? '⚠️ ये पेज Google/Meta अप्रूवल के लिए ज़रूरी है। ' : '') + 'पेज "<b>' + esc(d.title) + '</b>" डिलीट करें?', 'डिलीट', true)) { D.pages = D.pages.filter(function (x) { return x !== d; }); render(); save('🗑 पेज डिलीट हो गया'); }
+    }
+  });
+};
+
 /* ======================= settings ======================= */
 var SET_GROUPS = [
   ['🏪 स्टोर की जानकारी', [
@@ -721,11 +773,31 @@ var SET_GROUPS = [
     { k: 'settings.whatsapp', l: 'WhatsApp नंबर', t: 'text', req: true, v: function (x) { return SP.digits(x).length < 10 ? 'सही नंबर लिखें' : ''; } },
     { k: 'settings.phone', l: 'कॉल नंबर', t: 'text' }, { k: 'settings.email', l: 'ईमेल', t: 'text' }, { k: 'settings.address', l: 'पता', t: 'textarea', rows: 2 },
     { k: 'settings.footerText', l: 'फ़ुटर / स्टोर विवरण (Google में भी दिखेगा)', t: 'textarea', rows: 2 },
-    { k: 'settings.delivery', l: 'डिलीवरी नोट (कार्ट में दिखेगा)', t: 'text' },
     { k: 'settings.themeColor', l: 'मुख्य रंग (Theme)', t: 'color', d: '#1e8e3e' },
     { k: 'settings.defaultLang', l: 'शुरुआती भाषा', t: 'select', o: [['hi', 'हिंदी'], ['en', 'English']] },
     { k: 'settings.stickyTicker', l: 'नीचे चिपकी फ़ीडबैक पट्टी (sticky ticker) दिखाएँ', t: 'check' },
     { k: 'settings.whatsappButton', l: 'हरा WhatsApp बटन दिखाएँ', t: 'check' }]],
+  ['🏢 कानूनी व बिज़नेस जानकारी (पॉलिसी पेजों में अपने आप भरती है)', [
+    { k: 'settings.legalName', l: 'बिज़नेस का कानूनी नाम', t: 'text', req: true }, { k: 'settings.ownerName', l: 'प्रोप्राइटर / मालिक का नाम', t: 'text' },
+    { k: 'settings.gstin', l: 'GSTIN', t: 'text', v: function (x) { return x && !/^[0-9]{2}[A-Z0-9]{13}$/i.test(x) ? 'GSTIN 15 अक्षर का होता है' : ''; } },
+    { k: 'settings.hours', l: 'कार्य समय (हिंदी)', t: 'text' }, { k: 'settings.hoursEn', l: 'Working hours (English)', t: 'text' },
+    { k: 'settings.since', l: 'अनुभव (हिंदी)', t: 'text', ph: '2016 से • 500+ प्रोजेक्ट' }, { k: 'settings.sinceEn', l: 'Experience (English)', t: 'text' },
+    { k: 'settings.mapsLink', l: 'Google Maps लिंक', t: 'text' }, { k: 'settings.mainSite', l: 'मुख्य वेबसाइट लिंक', t: 'text', ph: 'https://www.sunpowers.in' },
+    { k: 'settings.gstNote', l: 'GST लाइन (कीमत के पास दिखेगी)', t: 'text' },
+    { k: 'settings.policyDate', l: 'पॉलिसी की तारीख़ ("अंतिम अपडेट")', t: 'text' },
+    { k: 'settings.reportDays', l: 'टूटा/खराब प्रोडक्ट बताने के दिन', t: 'number', min: 1, max: 60, d: 7 },
+    { k: 'settings.policyConsent', l: 'ऑर्डर से पहले "पॉलिसी पढ़ ली" वाला टिक ज़रूरी हो', t: 'check' }]],
+  ['⭐ Google रिव्यू', [
+    { k: 'settings.googleRating', l: 'Google रेटिंग', t: 'text', ph: '5.0' }, { k: 'settings.googleReviews', l: 'कुल Google रिव्यू', t: 'text', ph: '17' },
+    { k: 'settings.reviewLink', l: '"रिव्यू लिखें" लिंक (GMB → Ask for reviews)', t: 'text' }, { k: 'settings.social.gmb', l: 'GMB प्रोफ़ाइल लिंक ("सभी रिव्यू देखें")', t: 'text' }]],
+  ['🚚 डिलीवरी चार्ज (कार्ट में अपने आप जुड़ेगा)', [
+    { k: 'settings.shipping.enabled', l: 'डिलीवरी चार्ज लागू करें', t: 'check' },
+    { k: 'settings.shipping.localPins', l: 'लोकल पिनकोड की शुरुआत (कॉमा से अलग)', t: 'text', h: 'जैसे 226 = लखनऊ के सारे पिनकोड (226001…226031)' },
+    { k: 'settings.shipping.localName', l: 'लोकल इलाक़े का नाम (हिंदी)', t: 'text' }, { k: 'settings.shipping.localNameEn', l: 'Local area name (English)', t: 'text' },
+    { k: 'settings.shipping.localCharge', l: 'लोकल डिलीवरी चार्ज (₹) — 0 = फ़्री', t: 'number', min: 0 },
+    { k: 'settings.shipping.otherCharge', l: 'बाकी जगह डिलीवरी चार्ज (₹)', t: 'number', min: 0 },
+    { k: 'settings.shipping.freeAbove', l: 'इतने ₹ से ऊपर के ऑर्डर पर फ़्री (0 = कभी नहीं)', t: 'number', min: 0 },
+    { k: 'settings.delivery', l: 'डिलीवरी की एक लाइन (कार्ट/प्रोडक्ट पेज पर)', t: 'text', h: 'ऊपर वाले चार्ज से मेल खानी चाहिए' }]],
   ['💳 पेमेंट सेटिंग्स', [
     { k: 'settings.payments.cod.enabled', l: '✅ Cash on Delivery (एडवांस के साथ) चालू', t: 'check' },
     { k: 'settings.payments.cod.advancePct', l: 'COD में एडवांस % (अभी लेना है)', t: 'number', min: 0, max: 100, d: 15 },
@@ -738,9 +810,10 @@ var SET_GROUPS = [
     { k: 'settings.siteUrl', l: 'वेबसाइट URL (प्रोडक्ट फ़ीड के लिए)', t: 'text', ph: 'https://www.sunpowers.in' },
     { k: 'settings.brand', l: 'ब्रांड नाम', t: 'text' },
     { k: 'settings.social.facebook', l: 'Facebook पेज लिंक', t: 'text' }, { k: 'settings.social.instagram', l: 'Instagram लिंक', t: 'text' },
-    { k: 'settings.social.youtube', l: 'YouTube चैनल लिंक', t: 'text' }, { k: 'settings.social.gmb', l: 'Google Business Profile (GMB) लिंक', t: 'text' },
+    { k: 'settings.social.youtube', l: 'YouTube चैनल लिंक', t: 'text' },
     { k: 'settings.integrations.ga4', l: 'Google Analytics 4 ID (G-XXXXXXX)', t: 'text', v: function (x) { return x && !/^G-[A-Z0-9]+$/i.test(x) ? 'G- से शुरू होना चाहिए' : ''; } },
     { k: 'settings.integrations.metaPixel', l: 'Meta (Facebook) Pixel ID', t: 'text', v: function (x) { return x && !/^\d{6,20}$/.test(x) ? 'सिर्फ़ अंक' : ''; } }]]];
+var PAYG = SET_GROUPS.findIndex(function (g) { return g[0].indexOf('पेमेंट') >= 0; });
 V.settings = function () {
   return SET_GROUPS.map(function (g, i) { return '<div class="card" data-sg="' + i + '"><h2>' + g[0] + '</h2>' + F(g[1], D) + '<button class="btn" data-sgs="' + i + '" style="margin-top:14px">💾 सेव करें</button></div>'; }).join('') +
     '<div class="card"><h2>🔑 Admin पासवर्ड बदलें</h2><div class="fg"><div class="fld"><label class="l" for="pw1">नया पासवर्ड (कम से कम 6 अक्षर)</label><input type="password" id="pw1" autocomplete="new-password"></div>' +
@@ -753,8 +826,8 @@ V.settings_bind = function (m) {
   $$('[data-sgs]', m).forEach(function (b) {
     b.onclick = function () {
       var i = +b.getAttribute('data-sgs'), card = $('[data-sg="' + i + '"]', m), v = readForm(card, SET_GROUPS[i][1]); if (!v) return;
-      if (i === 1 && !v['settings.payments.cod.enabled'] && !v['settings.payments.upi.enabled']) toast('⚠️ दोनों पेमेंट बंद हैं — ग्राहक सिर्फ़ WhatsApp से ऑर्डर कर पाएँगे', true);
-      if (i === 1 && v['settings.payments.upi.enabled'] && !v['settings.payments.upi.upiId']) return toast('UPI चालू है तो UPI ID ज़रूरी है', true);
+      if (i === PAYG && !v['settings.payments.cod.enabled'] && !v['settings.payments.upi.enabled']) toast('⚠️ दोनों पेमेंट बंद हैं — ग्राहक सिर्फ़ WhatsApp से ऑर्डर कर पाएँगे', true);
+      if (i === PAYG && v['settings.payments.upi.enabled'] && !v['settings.payments.upi.upiId']) return toast('UPI चालू है तो UPI ID ज़रूरी है', true);
       applyTo(D, v); save().then(function () { var h = $('.top h1'); if (h) h.textContent = '⚙️ ' + D.settings.storeName + ' Admin'; });
     };
   });
@@ -795,7 +868,7 @@ function orderCard(o) {
     '<small style="color:var(--mut)">' + fmtDate(o.created_at) + '</small>' +
     '<div class="kv"><div><span>📞</span> <a href="tel:' + esc(d.phone) + '">' + esc(d.phone) + '</a></div><div><span>📍</span> ' + esc([d.address, d.city, d.pincode].filter(Boolean).join(', ')) + '</div>' + (d.note ? '<div><span>📝</span> ' + esc(d.note) + '</div>' : '') + '</div>' +
     '<div style="background:#fafcf9;border-radius:10px;padding:8px;font-size:14px">' + items.map(function (l) { return esc(l.title) + ' × ' + esc(l.qty) + ' = <b>' + SP.money(l.amount) + '</b>'; }).join('<br>') +
-    '<div style="border-top:1px dashed var(--line);margin-top:6px;padding-top:6px"><b>कुल: ' + SP.money(d.total) + '</b> • ' + (d.payment === 'cod' ? 'COD — एडवांस ' + SP.money(d.advance) + ', डिलीवरी पर ' + SP.money(d.due) : d.payment === 'upi' ? 'UPI — पूरा ' + SP.money(d.total) : esc(d.payment)) + '</div></div>' +
+    '<div style="border-top:1px dashed var(--line);margin-top:6px;padding-top:6px">' + (d.shipping !== undefined ? 'डिलीवरी: ' + (SP.num(d.shipping) ? SP.money(d.shipping) : 'फ़्री') + ' • ' : '') + '<b>कुल: ' + SP.money(d.total) + '</b> • ' + (d.payment === 'cod' ? 'COD — एडवांस ' + SP.money(d.advance) + ', डिलीवरी पर ' + SP.money(d.due) : d.payment === 'upi' ? 'UPI — पूरा ' + SP.money(d.total) : esc(d.payment)) + '</div></div>' +
     '<div class="bar" style="margin:10px 0 0"><select class="inp" style="width:auto" data-st="orders|' + o.id + '">' + st.map(function (s) { return '<option value="' + s[0] + '"' + (o.status === s[0] ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('') + '</select>' +
     '<a class="btn sm" style="background:#25d366" target="_blank" rel="noopener" href="' + esc(SP.waLink(d.phone, wa)) + '">💬 WhatsApp</a><button class="btn sm red" data-ld="orders|' + o.id + '">🗑</button></div></div>';
 }
@@ -844,8 +917,8 @@ function listTabBind(m) {
 function exportList(kind) {
   var data = LISTDATA[kind] || [], rows;
   if (kind === 'orders') {
-    rows = [['order_id', 'date', 'status', 'name', 'phone', 'address', 'city', 'pincode', 'items', 'total', 'payment', 'advance', 'due', 'note']].concat(data.map(function (o) {
-      var d = o.data || {}; return [o.id, fmtDate(o.created_at), o.status, d.name, d.phone, d.address, d.city, d.pincode, (d.items || []).map(function (l) { return l.title + ' x ' + l.qty; }).join(' | '), SP.num(d.total), d.payment, SP.num(d.advance), SP.num(d.due), d.note];
+    rows = [['order_id', 'date', 'status', 'name', 'phone', 'address', 'city', 'pincode', 'items', 'subtotal', 'delivery', 'total', 'payment', 'advance', 'due', 'note']].concat(data.map(function (o) {
+      var d = o.data || {}; return [o.id, fmtDate(o.created_at), o.status, d.name, d.phone, d.address, d.city, d.pincode, (d.items || []).map(function (l) { return l.title + ' x ' + l.qty; }).join(' | '), SP.num(d.subtotal !== undefined ? d.subtotal : d.total), SP.num(d.shipping), SP.num(d.total), d.payment, SP.num(d.advance), SP.num(d.due), d.note];
     }));
   } else {
     rows = [['id', 'date', 'status', 'name', 'phone', 'city', 'type', 'subject', 'message']].concat(data.map(function (o) { var d = o.data || {}; return [o.id, fmtDate(o.created_at), o.status, d.name, d.phone, d.city, d.type, d.subject, d.message]; }));
@@ -868,7 +941,7 @@ var XCOLS = {
   Slideshows: [['id', 'id'], ['name', 'name'], ['interval_sec', 'interval'], ['effect (slide/fade)', 'effect'], ['height_px', 'height'], ['autoplay (yes/no)', 'autoplay'], ['dots (yes/no)', 'dots'], ['arrows (yes/no)', 'arrows'], ['visible (yes/no)', 'visible']],
   Slides: [['slideshow_id', 'ssid'], ['id', 'id'], ['title', 'title'], ['subtitle', 'subtitle'], ['button', 'button'], ['ribbon', 'ribbon'], ['image', 'image'], ['link_type', 'linkType'], ['link', 'link'], ['bg_color', 'bg'], ['emoji', 'emoji'], ['visible (yes/no)', 'visible']],
   Services: [['id', 'id'], ['icon', 'icon'], ['title', 'title'], ['sub', 'sub'], ['price', 'price'], ['bg_color', 'bg'], ['link_type', 'linkType'], ['link', 'link']],
-  Feedback: [['id', 'id'], ['name', 'name'], ['city', 'city'], ['rating', 'rating'], ['text', 'text']],
+  Feedback: [['id', 'id'], ['name', 'name'], ['city', 'city'], ['rating', 'rating'], ['text', 'text'], ['source (google/whatsapp/direct)', 'source']],
   Videos: [['id', 'id'], ['title', 'title'], ['youtube_url', 'url']]
 };
 var BOOL_KEYS = { visible: 1, autoplay: 1, dots: 1, arrows: 1 }, NUM_KEYS = { mrp: 1, offer: 1, sort: 1, limit: 1, interval: 1, height: 1, rating: 1 };

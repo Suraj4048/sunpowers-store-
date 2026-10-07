@@ -238,6 +238,25 @@ main{padding-top:12px}
 
 /* footer, nav, ticker, toast */
 footer{margin-top:20px;padding:18px 0 10px;color:var(--mut);font-size:13px;border-top:1px solid var(--line)}
+footer .fl{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px}
+footer .fl a{color:var(--g-d);font-weight:600}
+footer .legal{margin-top:8px;line-height:1.5}
+.doc{background:#fff;border-radius:20px;padding:18px;box-shadow:var(--sh);max-width:820px}
+.doc h2{font-size:18px;font-weight:800;margin:16px 0 6px;color:var(--g-d)}
+.doc h2:first-child{margin-top:0}
+.doc p{margin:6px 0}
+.doc ul{margin:6px 0 6px 20px;display:grid;gap:4px}
+.doc a{color:var(--g-d);text-decoration:underline;word-break:break-word}
+.revsum{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:#fff;border-radius:16px;padding:12px 14px;box-shadow:var(--sh);margin-bottom:10px}
+.revsum .big{font-size:26px;font-weight:800;line-height:1}
+.revsum .st{color:var(--gold);font-size:18px;letter-spacing:1px}
+.revsum .grow{flex:1;min-width:120px;color:var(--mut);font-size:13px}
+.gbadge{display:inline-block;font-size:11px;font-weight:700;color:#1a73e8;background:#e8f0fe;border-radius:6px;padding:0 6px;margin-left:4px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;margin-top:12px;cursor:pointer}
+.consent input{width:20px;height:20px;margin-top:2px;accent-color:var(--g);flex:none}
+.consent a{color:var(--g-d);text-decoration:underline}
+.pnote{font-size:13px;color:var(--mut);margin-top:8px;line-height:1.5}
+.pnote a{color:var(--g-d);text-decoration:underline}
 footer b{color:var(--txt);font-size:16px}
 footer .soc{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
 footer .soc a{color:var(--g-d);font-weight:600}
@@ -331,7 +350,12 @@ var T = {
     contact:'संपर्क करें', call:'कॉल करें', email:'ईमेल', myOrders:'मेरे ऑर्डर', noOrders:'अभी कोई ऑर्डर नहीं', howto:'ऑर्डर कैसे करें',
     payModes:'पेमेंट के तरीके', soon:'🎬 वीडियो जल्द आ रहा है', allCats:'सभी कैटेगरी', all:'सभी', notFound:'प्रोडक्ट नहीं मिला', inStock:'स्टॉक में',
     advNote:'ऑर्डर कन्फ़र्म करने के लिए एडवांस UPI से भेजें, बाकी डिलीवरी पर।', fullNote:'पूरा भुगतान UPI से करें।', offline:'ऑफ़लाइन मोड — पुराना डेटा दिख रहा है',
-    codDesc:'% एडवांस अभी (UPI से), बाकी डिलीवरी पर', upiDesc:'पूरा भुगतान UPI से', qty:'मात्रा' },
+    codDesc:'% एडवांस अभी (UPI से), बाकी डिलीवरी पर', upiDesc:'पूरा भुगतान UPI से', qty:'मात्रा',
+    ship:'डिलीवरी चार्ज', free:'फ़्री', pinFirst:'पिनकोड डालें', grand:'कुल रकम', gst:'GST सहित',
+    consent:'मैंने {r}, {s} और {t} पढ़ ली हैं और मैं इनसे सहमत हूँ।', consentErr:'ऑर्डर से पहले पॉलिसी से सहमति ज़रूरी है',
+    rPol:'रिटर्न पॉलिसी', sPol:'शिपिंग पॉलिसी', tPol:'नियम व शर्तें', policies:'पॉलिसी व जानकारी',
+    gAll:'Google पर सभी रिव्यू देखें', gWrite:'रिव्यू लिखें', gRev:'Google रिव्यू', mainSite:'मुख्य वेबसाइट',
+    retShort:'रिटर्न: टूटा/खराब/गलत प्रोडक्ट मिलने पर एक्सचेंज।', inEn:'Read in English', inHi:'हिंदी में पढ़ें', pageNF:'पेज नहीं मिला' },
   en: { home:'Home', cats:'Categories', wish:'Wishlist', cart:'Cart', help:'Help', viewAll:'View all →', add:'Add to cart', buy:'Buy now',
     added:'Added to cart ✓', oos:'Out of stock', off:'% off', back:'Back', search:'Search results', noRes:'No products found',
     askWa:'Ask on WhatsApp', details:'Product details', related:'Similar products', more:'More info ↗', sku:'SKU', brand:'Brand', unit:'Unit',
@@ -346,7 +370,12 @@ var T = {
     contact:'Contact us', call:'Call', email:'Email', myOrders:'My orders', noOrders:'No orders yet', howto:'How to order',
     payModes:'Payment options', soon:'🎬 Video coming soon', allCats:'All categories', all:'All', notFound:'Product not found', inStock:'In stock',
     advNote:'Send the advance via UPI to confirm; pay the rest on delivery.', fullNote:'Pay the full amount via UPI.', offline:'Offline mode — showing saved data',
-    codDesc:'% advance now (UPI), rest on delivery', upiDesc:'Full payment via UPI', qty:'Qty' }
+    codDesc:'% advance now (UPI), rest on delivery', upiDesc:'Full payment via UPI', qty:'Qty',
+    ship:'Delivery charge', free:'Free', pinFirst:'Enter pincode', grand:'Total amount', gst:'Incl. GST',
+    consent:'I have read and agree to the {r}, {s} and {t}.', consentErr:'Please agree to the policies before ordering',
+    rPol:'Return Policy', sPol:'Shipping Policy', tPol:'Terms & Conditions', policies:'Policies & info',
+    gAll:'See all reviews on Google', gWrite:'Write a review', gRev:'Google review', mainSite:'Main website',
+    retShort:'Returns: exchange if the product arrives damaged, defective or wrong.', inEn:'Read in English', inHi:'हिंदी में पढ़ें', pageNF:'Page not found' }
 };
 function t(k) { return (T[lang] || T.hi)[k] || T.hi[k] || k; }
 function tr(o, k) { if (!o) return ''; return lang === 'en' ? (o[k + 'En'] || o[k] || '') : (o[k] || o[k + 'En'] || ''); }
@@ -403,7 +432,9 @@ function badges() {
 }
 
 /* ---------------- navigation ---------------- */
-function curView() { var q = new URLSearchParams(location.search); return q.get('p') ? 'product' : q.get('s') ? 'section' : (q.get('view') || 'home'); }
+function curView() { var q = new URLSearchParams(location.search); return q.get('p') ? 'product' : q.get('s') ? 'section' : q.get('page') ? 'page' : (q.get('view') || 'home'); }
+function pageById(id) { return (S.pages || []).filter(function (pg) { return pg.id === id; })[0]; }
+function pageLink(id, label) { var pg = pageById(id); return pg ? '<a href="?page=' + encodeURIComponent(id) + '" data-nav>' + esc(label || tr(pg, 'title')) + '</a>' : esc(label || ''); }
 function go(url) {
   var d = (history.state && history.state.d) || 0;
   try { history.replaceState({ y: window.scrollY, d: d }, ''); } catch (e) {}
@@ -522,14 +553,23 @@ R.howto = function () {
     '<div class="acc-b"><ol class="steps">' + (h.steps || []).map(function (s) { return '<li><span>' + esc(s) + '</span></li>'; }).join('') + '</ol>' +
     (pl.length ? '<div class="paybox"><b>' + t('payModes') + '</b>' + pl.map(function (x, i) { return '<div>' + (i + 1) + '. ' + x.replace(/^<div>|<\/div>$/g, '') + '</div>'; }).join('') + '</div>' : '') + '</div></div>';
 };
+function reviewSummary() {
+  var st = S.settings, gl = (st.social && st.social.gmb) || st.mapsLink, rl = st.reviewLink;
+  if (!gl && !rl && !st.googleRating) return '';
+  var r = SP.num(st.googleRating), n = Math.round(SP.num(st.googleReviews));
+  return '<div class="revsum">' + (r ? '<span class="big">' + r.toFixed(1) + '</span><span class="st">' + '★★★★★'.slice(0, Math.round(r)) + '</span>' : '') +
+    '<span class="grow">' + (n ? n + ' ' : '') + 'Google reviews</span>' +
+    (gl ? '<a class="btn out" style="padding:8px 12px" target="_blank" rel="noopener" href="' + esc(SP.safeUrl(gl)) + '">' + t('gAll') + '</a>' : '') +
+    (rl ? '<a class="btn" style="padding:8px 12px" target="_blank" rel="noopener" href="' + esc(SP.safeUrl(rl)) + '">⭐ ' + t('gWrite') + '</a>' : '') + '</div>';
+}
 R.feedback = function () {
-  var f = S.feedback, items = (f.items || []).filter(function (x) { return x.text; });
-  if (!items.length) return '';
+  var f = S.feedback, items = (f.items || []).filter(function (x) { return x.text; }), sum = reviewSummary();
+  if (!items.length) return sum ? '<div class="bh"><h2>💬 ' + esc(f.title) + '</h2></div>' + sum : '';
   var one = items.map(function (x) {
     var r = Math.max(1, Math.min(5, Math.round(SP.num(x.rating) || 5)));
-    return '<div class="fbc"><div class="st">' + '★★★★★'.slice(0, r) + '<span style="color:#ddd">' + '★★★★★'.slice(r) + '</span></div><p>“' + esc(x.text) + '”</p><small>— ' + esc(x.name) + (x.city ? ', ' + esc(x.city) : '') + '</small></div>';
+    return '<div class="fbc"><div class="st">' + '★★★★★'.slice(0, r) + '<span style="color:#ddd">' + '★★★★★'.slice(r) + '</span>' + (x.source === 'google' ? '<span class="gbadge">Google</span>' : '') + '</div><p>“' + esc(x.text) + '”</p><small>— ' + esc(x.name) + (x.city ? ', ' + esc(x.city) : '') + '</small></div>';
   }).join('');
-  return '<div class="bh"><h2>💬 ' + esc(f.title) + '</h2></div><div class="fbm"><div class="fbt" style="--d:' + Math.max(20, items.length * 8) + 's">' + one + one + '</div></div>';
+  return '<div class="bh"><h2>💬 ' + esc(f.title) + '</h2></div>' + sum + '<div class="fbm"><div class="fbt" style="--d:' + Math.max(20, items.length * 8) + 's">' + one + one + '</div></div>';
 };
 R.videos = function () {
   var v = S.videos, items = v.items || [];
@@ -639,7 +679,8 @@ function renderProduct(id) {
     (imgs.length > 1 ? '<div class="thumbs">' + imgs.map(function (src, i) { return '<button data-th="' + i + '"' + (i === 0 ? ' class="on"' : '') + '>' + imgTag(src) + '</button>'; }).join('') + '</div>' : '') + '</div>' +
     '<div><h1>' + esc(tr(p, 'title')) + '</h1>' + (p.tagline ? '<div class="tg">' + esc(p.tagline) + '</div>' : '') +
     '<div class="bigp"><b>' + SP.money(SP.price(p)) + '</b>' + (off ? '<s>' + SP.money(p.mrp) + '</s><em>' + off + t('off') + '</em>' : '') + (p.unit ? '<span style="color:var(--mut)">/' + esc(p.unit) + '</span>' : '') + '</div>' +
-    (p.badge ? '<span class="pill">' + esc(p.badge) + '</span> ' : '') + '<span class="pill" style="' + (out ? 'background:#fdecea;color:var(--red);border-color:#f5c2bd' : '') + '">' + (out ? t('oos') : '✔ ' + t('inStock')) + '</span>' +
+    '<div class="pnote">✔ ' + esc(S.settings.gstNote || t('gst')) + (S.settings.delivery ? ' • 🚚 ' + esc(S.settings.delivery) : '') + '<br>↩ ' + esc(t('retShort')) + ' ' + pageLink('returns', t('rPol')) + '</div>' +
+    (p.badge ? '<span class="pill" style="margin-top:8px">' + esc(p.badge) + '</span> ' : '') + '<span class="pill" style="' + (out ? 'background:#fdecea;color:var(--red);border-color:#f5c2bd' : '') + '">' + (out ? t('oos') : '✔ ' + t('inStock')) + '</span>' +
     (out ? '' : '<div style="margin-top:12px;display:flex;align-items:center;gap:10px"><span style="font-weight:700">' + t('qty') + ':</span><div class="qty"><button id="qm" aria-label="-">−</button><span id="qv">1</span><button id="qp" aria-label="+">+</button></div></div>') +
     '<div class="acts">' + (out ? '' : '<button class="btn out" id="addBtn">🛒 ' + t('add') + '</button><button class="btn" id="buyBtn">⚡ ' + t('buy') + '</button>') +
     '<a class="btn wa" style="grid-column:1/-1" target="_blank" rel="noopener" href="' + esc(SP.waLink(S.settings.whatsapp, waText)) + '">💬 ' + t('askWa') + '</a>' +
@@ -693,6 +734,7 @@ function renderCart() {
   if (!c.length) { view.innerHTML = '<div class="top"><button class="back" data-back>←</button><h1>🛒 ' + t('cart') + '</h1></div><div class="empty"><div class="i">🛒</div>' + t('emptyCart') + '<br><br><a class="btn" href="./" data-nav>' + t('shop') + '</a></div>'; return; }
   var modes = payModes(), saved = SP.ls.get('sp_cust', {}) || {}, mode = (modes.filter(function (m) { return m.k === saved.pay; })[0] || modes[0] || {}).k || '';
   var total = c.reduce(function (s, x) { return s + SP.price(prod(x.id)) * x.qty; }, 0);
+  var needConsent = S.settings.policyConsent !== false && (pageById('returns') || pageById('shipping') || pageById('terms'));
   function f(id, label, type, val, extra) { return '<div class="fld"><label for="' + id + '">' + label + '</label><input id="' + id + '" ' + (type ? 'type="' + type + '" ' : '') + (extra || '') + ' value="' + esc(val || '') + '"><div class="err hide"></div></div>'; }
   view.innerHTML = '<div class="top"><button class="back" data-back>←</button><h1>🛒 ' + t('cart') + ' (' + c.length + ')</h1></div>' +
     c.map(function (x) {
@@ -712,18 +754,22 @@ function renderCart() {
       return '<label class="popt' + (m.k === mode ? ' on' : '') + '"><input type="radio" name="pm" value="' + m.k + '"' + (m.k === mode ? ' checked' : '') + '><span><b>' + esc(m.label) + '</b><small>' + esc(m.desc) + '</small></span></label>';
     }).join('') + '</div><div class="err hide" id="pm-err"></div>' : '<div class="note">' + t('noPay') + '</div>') +
     '<div class="tot card" style="margin-top:12px;box-shadow:none;background:var(--g-l)" id="tot"></div>' +
-    (S.settings.delivery ? '<p style="font-size:12px;color:var(--mut);margin-top:6px">🚚 ' + esc(S.settings.delivery) + '</p>' : '') +
+    '<p style="font-size:12px;color:var(--mut);margin-top:6px">✔ ' + esc(S.settings.gstNote || t('gst')) + (S.settings.delivery ? ' • 🚚 ' + esc(S.settings.delivery) : '') + '</p>' +
+    (needConsent ? '<label class="consent"><input type="checkbox" id="co-ok"><span>' + esc(t('consent')).replace('{r}', pageLink('returns', t('rPol'))).replace('{s}', pageLink('shipping', t('sPol'))).replace('{t}', pageLink('terms', t('tPol'))) + '</span></label><div class="err hide" id="ok-err"></div>' : '') +
     '<div class="note hide" id="co-fail" style="margin-top:12px"></div><div style="display:grid;gap:8px;margin-top:12px">' + (modes.length ? '<button class="btn full" id="placeBtn" type="submit">✅ ' + t('place') + '</button>' : '') +
     '<button class="btn wa full" type="button" id="coWa">💬 ' + t('sendWa') + '</button></div></form></div>';
   function upd() {
-    var m = ($('input[name=pm]:checked') || {}).value || '', r = calc(total, m);
+    var m = ($('input[name=pm]:checked') || {}).value || '', sh = SP.shippingFor(total, $('#co-pin').value, S.settings), grand = total + (sh.known ? sh.charge : 0), r = calc(grand, m);
     $('#tot').innerHTML = '<div><span>' + t('sub') + '</span><b>' + SP.money(total) + '</b></div>' +
+      '<div><span>' + t('ship') + '</span><b id="shipAmt">' + (sh.known ? (sh.charge ? SP.money(sh.charge) : t('free')) : '<small style="color:var(--mut);font-weight:600">' + t('pinFirst') + '</small>') + '</b></div>' +
       (m === 'cod' ? '<div><span>' + t('adv') + ' (' + Math.round(SP.num(S.settings.payments.cod.advancePct)) + '%)</span><b>' + SP.money(r.adv) + '</b></div><div><span>' + t('due') + '</span><b>' + SP.money(r.due) + '</b></div>' : '') +
+      (m === 'cod' ? '<div><span>' + t('grand') + '</span><b>' + SP.money(grand) + '</b></div>' : '') +
       '<div class="g"><span>' + (m === 'cod' ? t('adv') : t('total')) + '</span><span>' + SP.money(r.adv) + '</span></div>';
     $$('.popt').forEach(function (l) { l.classList.toggle('on', $('input', l).checked); });
   }
   upd();
   $$('input[name=pm]').forEach(function (r) { r.addEventListener('change', upd); });
+  $('#co-pin').addEventListener('input', upd);
   $$('[data-q]').forEach(function (b) {
     b.addEventListener('click', function () {
       var c2 = getCart(), it = c2.filter(function (x) { return x.id === b.getAttribute('data-q'); })[0]; if (!it) return;
@@ -753,40 +799,43 @@ function readCheckout(validate) {
   fieldErr('co-addr', d.addr.length >= 5 ? '' : (ok = false, t('reqAddr')));
   fieldErr('co-pin', /^\d{6}$/.test(d.pin) ? '' : (ok = false, t('reqPin')));
   var pe = $('#pm-err'); if (pe) { pe.textContent = d.pay ? '' : t('reqPay'); pe.classList.toggle('hide', !!d.pay); if (!d.pay) ok = false; }
+  var ck = $('#co-ok'), ce = $('#ok-err'); if (ck && ce) { ce.textContent = ck.checked ? '' : t('consentErr'); ce.classList.toggle('hide', ck.checked); if (!ck.checked) ok = false; }
   if (!ok) { var first = $('.err:not(.hide)'); if (first) first.parentNode.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
   return ok ? d : null;
 }
 function cartLines() {
   return getCart().map(function (x) { var p = prod(x.id); return { id: p.id, title: p.title, titleEn: p.titleEn, sku: p.sku, qty: x.qty, price: SP.price(p), amount: SP.price(p) * x.qty }; });
 }
-function orderText(d, id, total) {
+function orderText(d, id, sub) {
+  var sh = SP.shippingFor(sub, d.pin, S.settings), total = sub + (sh.known ? sh.charge : 0);
   var lines = cartLines(), r = calc(total, d.pay), pmode = d.pay === 'cod' ? 'Cash on Delivery (' + Math.round(SP.num(S.settings.payments.cod.advancePct)) + '% advance)' : d.pay === 'upi' ? 'UPI' : '-';
   return '🛒 *' + (id ? 'Order #' + id : 'New Order') + '* — ' + S.settings.storeName + '\n\n' +
     lines.map(function (l, i) { return (i + 1) + '. ' + l.title + ' × ' + l.qty + ' = ' + SP.money(l.amount); }).join('\n') +
-    '\n\n*Total:* ' + SP.money(total) + '\n*Payment:* ' + pmode + (d.pay === 'cod' ? '\n*Advance:* ' + SP.money(r.adv) + '\n*On delivery:* ' + SP.money(r.due) : '') +
+    '\n\n*Subtotal:* ' + SP.money(sub) + '\n*Delivery:* ' + (sh.known ? (sh.charge ? SP.money(sh.charge) : 'Free') : 'as per pincode') + '\n*Total:* ' + SP.money(total) + '\n*Payment:* ' + pmode + (d.pay === 'cod' ? '\n*Advance:* ' + SP.money(r.adv) + '\n*On delivery:* ' + SP.money(r.due) : '') +
     '\n\n*Name:* ' + (d.name || '') + '\n*Mobile:* ' + (d.phone || '') + '\n*Address:* ' + (d.addr || '') + (d.city ? ', ' + d.city : '') + (d.pin ? ' - ' + d.pin : '') + (d.note ? '\n*Note:* ' + d.note : '');
 }
 var placing = false;
-async function placeOrder(total) {
+async function placeOrder(sub) {
   if (placing) return;
   var d = readCheckout(true); if (!d) return;
   keepForm();
   var btn = $('#placeBtn'); placing = true; btn.disabled = true; btn.textContent = t('placing');
+  var sh = SP.shippingFor(sub, d.pin, S.settings), total = sub + sh.charge;
   var r = calc(total, d.pay), lines = cartLines();
   var order = { name: d.name, phone: d.phone, address: d.addr, city: d.city, pincode: d.pin, note: d.note, payment: d.pay,
-    items: lines, total: total, advance: r.adv, due: r.due, lang: lang, page: location.origin + location.pathname };
+    items: lines, subtotal: sub, shipping: sh.charge, total: total, advance: r.adv, due: r.due, policyAccepted: !!($('#co-ok') && $('#co-ok').checked), lang: lang, page: location.origin + location.pathname };
   var id = null, err = null;
   try { id = await SP.rpc('sp_place_order', { p_order: order }); } catch (e) { err = e; }
   placing = false;
   if (!id) {
     btn.disabled = false; btn.textContent = '✅ ' + t('place'); console.warn(err);
     var fe = $('#co-fail'); fe.innerHTML = '⚠️ ' + esc(t('fail')) + (err && err.message ? '<br><small>' + esc(err.message) + '</small>' : '') +
-      '<a class="btn wa full" style="margin-top:8px" target="_blank" rel="noopener" href="' + esc(SP.waLink(S.settings.whatsapp, orderText(d, null, total))) + '">💬 ' + t('sendWa') + '</a>';
+      '<a class="btn wa full" style="margin-top:8px" target="_blank" rel="noopener" href="' + esc(SP.waLink(S.settings.whatsapp, orderText(d, null, sub))) + '">💬 ' + t('sendWa') + '</a>';
     fe.classList.remove('hide'); fe.scrollIntoView({ behavior: 'smooth', block: 'center' }); return;
   }
   var my = SP.ls.get('sp_orders', []); if (!Array.isArray(my)) my = [];
   my.unshift({ id: id, at: Date.now(), total: total, adv: r.adv, pay: d.pay, items: lines.map(function (l) { return l.title + ' × ' + l.qty; }) }); SP.ls.set('sp_orders', my.slice(0, 30));
-  var text = orderText(d, id, total);
+  var text = orderText(d, id, sub);
   setCart([]);
   track('purchase', { value: total, currency: 'INR', transaction_id: String(id) });
   showSuccess(id, d, r, text);
@@ -813,6 +862,17 @@ function copy(txt) {
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
   function fallback() { var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) {} ta.remove(); }
 }
+function renderPage(id) {
+  var pg = pageById(id);
+  if (!pg) { view.innerHTML = '<div class="empty"><div class="i">📄</div>' + t('pageNF') + '<br><br><a class="btn" href="./" data-nav>' + t('home') + '</a></div>'; return; }
+  var title = tr(pg, 'title'), body = lang === 'en' ? (pg.bodyEn || pg.body) : (pg.body || pg.bodyEn);
+  var other = lang === 'en' ? (pg.body && pg.body !== pg.bodyEn) : (pg.bodyEn && pg.bodyEn !== pg.body);
+  setMeta(title + ' — ' + S.settings.storeName, SP.fillVars(body, S.settings).replace(/[#\-\n]+/g, ' ').slice(0, 160));
+  view.innerHTML = '<div class="top"><button class="back" data-back aria-label="' + t('back') + '">←</button><h1>' + esc(title) + '</h1></div>' +
+    '<article class="doc">' + SP.renderText(SP.fillVars(body, S.settings)) +
+    (other ? '<p style="margin-top:14px"><button class="btn out" id="pgLang" type="button">' + (lang === 'en' ? t('inHi') : t('inEn')) + '</button></p>' : '') + '</article>';
+  var b = $('#pgLang'); if (b) b.onclick = function () { lang = lang === 'en' ? 'hi' : 'en'; SP.ls.set('sp_lang', lang); applyChrome(); route(); };
+}
 function renderHelp() {
   setMeta(t('help') + ' — ' + S.settings.storeName);
   var st = S.settings, my = SP.ls.get('sp_orders', []); if (!Array.isArray(my)) my = [];
@@ -823,6 +883,8 @@ function renderHelp() {
     (st.email ? '<a class="btn out full" href="mailto:' + esc(st.email) + '">✉️ ' + esc(st.email) + '</a>' : '') +
     (st.address ? '<p style="color:var(--mut)">📍 ' + esc(st.address) + '</p>' : '') + '</div></div>' +
     '<div style="margin-top:14px">' + R.howto() + '</div>' +
+    '<div class="card" style="margin-top:14px"><h2 style="font-size:17px;margin-bottom:8px">📄 ' + t('policies') + '</h2><div style="display:grid;gap:8px">' +
+    (S.pages || []).map(function (pg) { return '<a class="btn out full" style="justify-content:flex-start" href="?page=' + encodeURIComponent(pg.id) + '" data-nav>' + esc(tr(pg, 'title')) + '</a>'; }).join('') + '</div></div>' +
     '<div class="card" style="margin-top:14px"><h2 style="font-size:17px;margin-bottom:8px">📦 ' + t('myOrders') + '</h2>' +
     (my.length ? my.map(function (o) { return '<div style="border-bottom:1px solid var(--line);padding:8px 0"><b>#' + esc(o.id) + '</b> — ' + SP.money(o.total) + ' <small style="color:var(--mut)">(' + new Date(o.at).toLocaleDateString('en-IN') + ', ' + esc(String(o.pay).toUpperCase()) + ')</small><div style="font-size:13px;color:var(--mut)">' + esc((o.items || []).join(', ')) + '</div></div>'; }).join('') : '<p style="color:var(--mut)">' + t('noOrders') + '</p>') + '</div>';
 }
@@ -873,7 +935,7 @@ function jsonLdProduct(p, imgs, link) {
 }
 function jsonLdList() {
   var st = S.settings;
-  setLd({ '@context': 'https://schema.org', '@type': 'Store', name: st.storeName, description: st.footerText, telephone: st.phone, email: st.email, url: st.siteUrl || location.origin, address: st.address || undefined,
+  setLd({ '@context': 'https://schema.org', '@type': 'Store', name: st.storeName, legalName: st.legalName || undefined, taxID: st.gstin || undefined, description: st.footerText, telephone: st.phone, email: st.email, url: st.siteUrl || location.origin, address: st.address || undefined, hasMap: st.mapsLink || undefined,
     sameAs: [st.social.facebook, st.social.instagram, st.social.youtube, st.social.gmb].filter(Boolean) });
 }
 
@@ -891,9 +953,11 @@ function applyChrome() {
   var so = st.social || {}, links = [['Facebook', so.facebook], ['Instagram', so.instagram], ['YouTube', so.youtube], ['Google', so.gmb]].filter(function (x) { return x[1]; });
   $('#foot').innerHTML = '<b>' + esc(st.logo || '') + ' ' + esc(st.storeName) + '</b><p style="margin-top:4px">' + esc(st.footerText || '') + '</p>' +
     '<p style="margin-top:6px">' + (st.phone ? '📞 <a href="tel:' + esc(SP.digits(st.phone)) + '">' + esc(st.phone) + '</a> &nbsp; ' : '') + (st.email ? '✉️ <a href="mailto:' + esc(st.email) + '">' + esc(st.email) + '</a>' : '') + '</p>' +
-    (st.address ? '<p>📍 ' + esc(st.address) + '</p>' : '') +
+    (st.address ? '<p>📍 ' + esc(st.address) + '</p>' : '') + (st.hours ? '<p>🕘 ' + esc(lang === 'en' ? (st.hoursEn || st.hours) : st.hours) + '</p>' : '') +
+    '<div class="fl">' + (S.pages || []).filter(function (pg) { return pg.footer !== false; }).map(function (pg) { return '<a href="?page=' + encodeURIComponent(pg.id) + '" data-nav>' + esc(tr(pg, 'title')) + '</a>'; }).join('') +
+    (st.mainSite ? '<a href="' + esc(SP.safeUrl(st.mainSite)) + '" target="_blank" rel="noopener">' + t('mainSite') + ' ↗</a>' : '') + '</div>' +
     (links.length ? '<div class="soc">' + links.map(function (l) { return '<a target="_blank" rel="noopener" href="' + esc(SP.safeUrl(l[1])) + '">' + l[0] + ' ↗</a>'; }).join('') + '</div>' : '') +
-    '<p style="margin-top:10px">© ' + new Date().getFullYear() + ' ' + esc(st.storeName) + '</p>';
+    '<p class="legal">© ' + new Date().getFullYear() + ' ' + esc(st.legalName || st.storeName) + (st.gstin ? ' • GSTIN: ' + esc(st.gstin) : '') + (st.gstNote ? ' • ' + esc(st.gstNote) : '') + '</p>';
   setupTicker();
 }
 var tickTimer = null;
@@ -921,6 +985,7 @@ function route() {
     else if (v === 'wishlist') renderWishlist();
     else if (v === 'categories') renderCategories();
     else if (v === 'help') renderHelp();
+    else if (v === 'page') renderPage(q.get('page'));
     else if (searchQ) renderSearch();
     else renderHome();
   } catch (e) {
