@@ -1350,9 +1350,23 @@
         }
 
         async function saveSettings(e) {
-            e.preventDefault();
-            showNotification('Settings saved!');
+        e.preventDefault();
+        const storeName = document.getElementById('storeName').value;
+        const whatsappNumber = document.getElementById('whatsappNumber').value;
+        const email = document.getElementById('email').value;
+        if (!storeName || !whatsappNumber || !email) {
+            showNotification('Please fill in all fields', 'error');
+            return;
         }
+        try {
+            const { error } = await supabase.from('admin_settings').upsert({id: 1, store_name: storeName, whatsapp_number: whatsappNumber, email: email, updated_at: new Date()}, { onConflict: 'id' });
+            if (error) throw error;
+            showNotification('Settings saved successfully!');
+        } catch (error) {
+            console.error('Error saving settings:', error);
+            showNotification('Error saving settings: ' + error.message, 'error');
+        }
+    }
 
         async function deleteCategory(id) {
             if (!confirm('Are you sure?')) return;
